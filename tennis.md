@@ -1,14 +1,18 @@
-# Tennis Match Predictor
+# WTA Tennis Match Predictor
 
-## Introduction
-
-This project aims to predict the outcomes of Women's Tennis Association (WTA) matches using machine learning. By analyzing match data from 2005 to 2025, we build a neural network model to forecast the winner based on various player and match attributes.
+This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2024 French Open. I knew very little about Python-based machine learning at that point, so it's all quite messy, and I definitely didn't pick an easy dataset to start with. However, this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model. I have since added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
 
 ---
 
+## Introduction
+
+The aim of this project was to use past WTA match data to attempt to successfully predict tennis results.
+
+
 ## Data Loading and Preprocessing
 
-The first step involves importing the necessary libraries and loading the dataset. The data is collected from yearly CSV files, cleaned to handle missing values, and transformed into a suitable format for model training.
+The first step involves importing the necessary libraries and loading the dataset. This section is messy as I was learning and so imported many modules that I didn't actually end up using.
+The data co
 
 ### Code Block 1: Imports
 ```python
@@ -23,10 +27,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, LabelBinarizer
 import json
 import numpy as np
-data_dir = '/home/luke/fun_code/tennis/tennis_wta/'
+data_dir = # folder containing CSV files of results
+```
 Code Block 2: Data Aggregation and Cleaning
 This block reads the match data for each year, cleans it by dropping rows with missing values (except for player ranks), and maps categorical features like surface and tournament level to numerical values.
 
+```
 Python
 
 data = {}
@@ -85,10 +91,12 @@ for year in range(2005,2025):
         data[year].drop(labels=f'winner_{stat}', axis=1, inplace=True)
     for wl in ['winner','loser']:
         data[year].drop(labels=f'{wl}_name', axis=1, inplace=True)
+```
 Data Transformation
 The yearly data is concatenated into a single DataFrame. Missing rank values are filled, and the data is saved to CSV and JSON files for future use.
 
 Code Block 3: Final DataFrame Preparation
+```
 Python
 
 df = pd.concat([data[i] for i in data], ignore_index=True)
@@ -103,8 +111,10 @@ df.to_csv('tennis.csv', index=False)
 with open("players.json", "w") as outfile:
     outfile.write(json_object)
 df.head()
+```
 DataFrame Head
 The first five rows of the final processed DataFrame:
+
 | | surface | tourney_level | best_of | year | player_1_id | player_2_id | player_1_hand | player_2_hand | player_1_ht | player_2_ht | player_1_rank | player_2_rank | winner |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 0 | 3.0 | 6.0 | 3 | 2005 | 201423 | 201527 | 1.0 | 1.0 | 175.0 | 170.0 | 135.0 | 1024.0 | 1.0 |
@@ -117,6 +127,7 @@ Model Training and Evaluation
 A neural network is built using Keras to predict match outcomes. The data is split into training and validation sets, and the model's performance is evaluated.
 
 Code Block 4: Feature Selection and Data Splitting
+```
 Python
 
 features=["surface","tourney_level","player_1_hand","player_2_hand","player_1_ht","player_2_ht","player_1_rank","player_2_rank","winner"]
@@ -129,7 +140,9 @@ X_valid = df_valid.drop('winner', axis=1)
 y_train = df_train['winner']
 y_valid = df_valid['winner']
 X_train.shape[1]
+```
 Code Block 5: Neural Network Model
+```
 Python
 
 import keras
@@ -174,7 +187,9 @@ print(("Best Validation Loss: {:0.4f}" +
       "\nBest Validation Accuracy: {:0.4f}")
       .format(history_df['val_loss'].min(), 
               history_df['val_binary_accuracy'].max()))
+```
 Training History
+```
 Epoch 1/1000
 73/73 ━━━━━━━━━━━━━━━━━━━━ 1s 11ms/step - binary_accuracy: 0.5821 - loss: 1.2507 - val_binary_accuracy: 0.6393 - val_loss: 0.6940
 Epoch 2/1000
@@ -182,6 +197,7 @@ Epoch 2/1000
 ...
 Epoch 34/1000
 73/73 ━━━━━━━━━━━━━━━━━━━━ 1s 13ms/step - binary_accuracy: 0.6544 - loss: 0.6202 - val_binary_accuracy: 0.6478 - val_loss: 0.6205
+```
 Results
 The model achieved the following performance on the validation set:
 
@@ -194,28 +210,3 @@ Figure 1: Training and validation loss over epochs.
 Figure 2: Training and validation accuracy over epochs.
 
 
-Sources
-
-
-
-
-
-
-
-
-
-
-
-Video
-
-Deep Research
-
-Canvas
-
-
-Gemini can make mistakes, including about people, so double-check it. Your privacy and GeminiOpens in a new window
-
-Tennis Match Predictor Project (Pure Markdown)
-
-
-Heading 1
