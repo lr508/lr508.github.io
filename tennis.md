@@ -34,9 +34,9 @@ The data used was taken from https://github.com/JeffSackmann/tennis_wta, I used 
 
 In this code block the data is processed into a format where it can be fed into scikit-learn.
 
-The features I decided to use were the surface, tournament level (Grand slam, WTA 1000 etc.), and the names, ranks, heights and handedness of each player. A potential problem with the format of the data, however, was that the winning player was always the first player name, so a potential model might recognise this, and we want it to build a model based on other factors.
+The features I decided to use were the surface, tournament level (Grand slam, WTA 1000 etc.), year, and the names, ranks, heights and handedness of each player. A potential problem with the format of the data, however, was that the winning player was always the first player name, so a potential model might recognise this, and we want it to build a model based on other factors.
 
-To counter this, I took the features specific to the two players (name, rank, height and handedness) and randomised whether each player was "player 1" or "player 2" using ```randint(1,2)```. All categoric variables were also converted to numeric variables using ```.map()``` from the pandas module, with each player assigned a unique id. I was not aware of one hot encoding at the time, so this was not used.
+To counter this, I took the features specific to the two players (name, rank, height and handedness) and randomised whether each player was "player 1" or "player 2" using ```randint(1,2)```. All categoric variables were also converted to numeric variables using ```.map()``` from the pandas module, with each player assigned a unique ID. I was not aware of one hot encoding at the time, so this was not used.
 
 As there was no longer a "winning player" column, an additional "winner" column had to be implemented, with a value of either 1 or 2 depending on the value of ```randint```.
 
@@ -99,7 +99,7 @@ for year in range(2005,2024):
         data[year].drop(labels=f'{wl}_name', axis=1, inplace=True)
 ```
 
-After the above processing, the yearly data was concatenated to form a much larger file containing all data, with a dictionary of player names and ids written to ```players.json```. As there was missing data for player rank, and this was a column that I wanted to use, a high rank of 3000 filled missing values.
+After the above processing, the yearly data was concatenated to form a much larger file containing all data, with a dictionary of player names and IDs written to ```players.json```. As there was missing data for player rank, and this was a column that I wanted to use, a high rank of 3000 filled missing values.
 
 ```python
 df = pd.concat([data[i] for i in data], ignore_index=True)
@@ -144,7 +144,7 @@ dump(model, 'WTA_model.joblib')
 
 ## Making a Prediction
 
-Finally, a test prediction between Iga Swiatek and Aryna Sabalenka on a hard court:
+Finally, a test prediction between Iga Swiatek and Aryna Sabalenka on a hard court in 2023:
 
 ```python
 year = 2023
@@ -159,7 +159,7 @@ player_2_rank =2
 print(model.predict([[year,tourney_level,surface,best_of,player_data[player_1]['id'],player_1_rank,player_data[player_1]['hand'],player_data[player_1]['ht'],player_data[player_2]['id'],player_2_rank,player_data[player_2]['hand'],player_data[player_2]['ht']]]))
 ```
 
-Prediction Output
+Prediction Output:
 ```python
 [2]
 ```
@@ -167,6 +167,12 @@ Prediction Output
 A interesting observation from fiddling with this command was that it predicted Sabalenka to win, no matter what combination of factors I put up against her. It felt like a shortcoming at the time, but considering she is now currently (July 2025) world number 1, with the most ranking points since Serena Williams, maybe it's a better model than I thought?
 
 # Neural Network Attempt (July 2025)
+
+This was more a way to check that my recent installation of Keras 3 with a Pytorch backend was working. I successfully used a GPU to train the model. The code is taken from the deep learning Kaggle course.
+
+---
+
+Here I define the model that I will be training. The sigmoid activation function ensures that the output is either a 0 or a 1. This did require a tweaking of the "winner" column. I ended up changing it to "Player 1 win", meaning that a 0 meant that player 2 won.
 
 ```python
 import keras
@@ -183,6 +189,9 @@ model = keras.Sequential([
     layers.Dense(1, activation='sigmoid'),
 ])
 ```
+
+The adam optimisation algorithm was used to train the model. The loss and metrics used are identical to those used in the binary classification section of the Kaggle course. Early stopping is implemented to prevent overfitting.
+
 ```python
 model.compile(
     optimizer='adam',
@@ -196,6 +205,9 @@ early_stopping = keras.callbacks.EarlyStopping(
     restore_best_weights=True,
 )
 ```
+
+Here we fit the neural network. ```X_train```, ```y_train```, ```X_valid``` and ```y_valid``` were all defined earlier in my notebook, which is not included here.
+
 ```python
 history = model.fit(
     X_train, y_train,
@@ -204,7 +216,11 @@ history = model.fit(
     epochs=1000,
     callbacks=[early_stopping]
 )
+```
 
+This code block plots the loss and accuracy during training which can be seen in Figure 1 and 2 below.
+
+```python
 history_df = pd.DataFrame(history.history)
 history_df.loc[5:, ['loss', 'val_loss']].plot()
 history_df.loc[5:, ['binary_accuracy', 'val_binary_accuracy']].plot()
@@ -216,7 +232,9 @@ print(("Best Validation Loss: {:0.4f}" +
 ```
 
 
-Training History
+### Training History
+
+Here we can see that the early stopping terminated the training after epoch 73.
 
 ```
 Epoch 1/1000
@@ -229,17 +247,28 @@ Epoch 34/1000
 ```
 
 
-Results
 
-The model achieved the following performance on the validation set:
+## Results
+
+The early stopping uses the weights that achieved the best loss and accuracy.
 
 Best Validation Loss: 0.6192 <br>
 Best Validation Accuracy: 0.6530<br>
 
 Figure 1: Training and validation loss over epochs.
 
- ![alt text](images/nn_loss.png)
+ ![Neural network loss](images/nn_loss.png)
 
 Figure 2: Training and validation accuracy over epochs.
 
-![alt text](images/nn_b_accuracy.png)
+![Neural network binary accuracy](images/nn_b_accuracy.png)
+
+This gives a model with an accuracy of approximately 65 %, which isn't amazing but it isn't bad for a first attempt in something as unpredictable as sport. This model didn't use the player IDs in its prediction. Interestingly, when player IDs were included in the model, the accuracy dropped to 49.5 %. Presumably there just wasn't enough data for the model to identify the connection between some IDs and a higher win rate. It's possible that using one hot encoding for the player names would improve this, although this would require many more columns in the dataset.
+
+# Conclusions
+
+From this project, I learnt how to process data in a way that is compatible with machine learning models, and which models can be used for which problem types.
+
+Next time I should ensure that I have a way to evaluate the model, as I did not implement this in the first section, meaning that changes I made had no obvious effect.
+
+Although this project wasn't the most rigourous, it allowed me to take away multiple things that I can implement next time.
