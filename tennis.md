@@ -1,7 +1,8 @@
 # WTA Tennis Match Prediction
 
 
-This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2023 US Open. I knew very little about Python-based machine learning at that point, so it's all quite messy, and I definitely didn't pick an easy dataset to start with. However, this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model. I have since added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
+This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2023 US Open. I knew very little about Python-based machine learning at that point, so it's all quite messy and there is little parameter testing. I also definitely didn't pick an easy dataset to start with, but this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model.
+The bottom section contains a recent edition where I added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
 
 ---
 
@@ -30,6 +31,15 @@ data_dir = # directory containing CSV results files
 ## Data Loading and Preprocessing
 
 The data used was taken from https://github.com/JeffSackmann/tennis_wta, I used the data for matches between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
+
+In this code block the data is processed into a format where it can be fed into scikit-learn.
+
+The features I decided to use were the surface, tournament level (Grand slam, WTA 1000 etc.), and the names, ranks, heights and handedness of each player. A potential problem with the format of the data, however, was that the winning player was always the first player name, so a potential model might recognise this, and we want it to build a model based on other factors.
+
+To counter this, I took the features specific to the two players (name, rank, height and handedness) and randomised whether each player was "player 1" or "player 2" using ```randint(1,2)```. All categoric variables were also converted to numeric variables using ```.map()``` from the pandas module, with each player assigned a unique id. I was not aware of one hot encoding at the time, so this was not used.
+
+As there was no longer a "winning player" column, an additional "winner" column had to be implemented, with a value of either 1 or 2 depending on the value of ```randint```.
+
 ```python
 data = {}
 player_data = {}
@@ -89,10 +99,8 @@ for year in range(2005,2024):
         data[year].drop(labels=f'{wl}_name', axis=1, inplace=True)
 ```
 
+After the above processing, the yearly data was concatenated to form a much larger file containing all data, with a dictionary of player names and ids written to ```players.json```. As there was missing data for player rank, and this was a column that I wanted to use, a high value of 3000 filled missing values.
 
-Data Transformation
-The yearly data is combined into a single DataFrame, and final cleaning steps are performed.
-Code Block 3: Final DataFrame Preparation
 ```python
 df = pd.concat([data[i] for i in data], ignore_index=True)
 
@@ -106,12 +114,8 @@ with open("players.json", "w") as outfile:
     outfile.write(json_object)
 ```
 
-Code Block 4: Display DataFrame
-```python
-df
-```
+Displaying the top of the processed data with ```df.head()``` shows that all columns are now in a format that can train a model.
 
-DataFrame Head
 The first five rows of the final processed DataFrame:
 | | surface | tourney_level | best_of | year | player_1_id | player_2_id | player_1_hand | player_2_hand | player_1_ht | player_2_ht | player_1_rank | player_2_rank | winner |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -122,24 +126,25 @@ The first five rows of the final processed DataFrame:
 | 4 | 1.0 | 6.0 | 3 | 2005 | 200079 | 200055 | 1.0 | 1.0 | 175.0 | 172.0 | 14.0 | 71.0 | 1 |
 
 
-Model Training
-A Random Forest Classifier is trained on the prepared data.
-Code Block 5: Model Fitting
+## Model Training
+I used a random forest classifier model for this project, as the decision tree is popular and a fairly simple concept, and can be used for classicationis trained on the prepared data. Using a forest increases the accuracy of the model.
+
 ```python
 model = RandomForestClassifier(verbose=1,n_estimators=2000,n_jobs=-1,bootstrap=False)
 model.fit(df[['year','tourney_level','surface','best_of','player_1_id','player_1_rank','player_1_hand','player_1_ht','player_2_id','player_2_rank','player_2_hand','player_2_ht']].values,df['winner'])
 ```
 
-Code Block 6: Saving the Model
-The trained model is saved to a file using joblib.
+I then saved the trained model using joblib for future use.
+
 ```python
 from joblib import dump, load
 dump(model, 'WTA_model.joblib') 
 ```
 
-Making a Prediction
-An example prediction is made for a match between Iga Swiatek and Aryna Sabalenka.
-Code Block 7: Prediction Example
+## Making a Prediction
+
+Finally, a test prediction between Iga Swiatek and Aryna Sabalenka on a hard court:
+
 ```python
 year = 2023
 tourney_level = 1
@@ -157,6 +162,8 @@ Prediction Output
 ```python
 [2]
 ```
+
+A interesting observation from fiddling with this command was that it predicted Sabalenka to win, no matter what combination of factors I put up against her. It felt like a shortcoming at the time, but considering she is now currently (July 2025) world number 1, with the most ranking points since Serena Williams, maybe it's a better model than I thought?
 
 # Neural Network Attempt (July 2025)
 
