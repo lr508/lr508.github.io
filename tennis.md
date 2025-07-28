@@ -30,7 +30,9 @@ data_dir = # directory containing CSV results files
 ```
 ## Data Loading and Preprocessing
 
-The data used was taken from [https://github.com/JeffSackmann/tennis_wta](https://github.com/JeffSackmann/tennis_wta), I used the data for matches between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
+The data used was taken from [https://github.com/JeffSackmann/tennis_wta](https://github.com/JeffSackmann/tennis_wta)
+
+<a href="https://github.com/JeffSackmann/tennis_wta" target="_blank">https://github.com/JeffSackmann/tennis_wta</a>, I used the data for matches between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
 
 In this code block the data is processed into a format where it can be fed into scikit-learn.
 
