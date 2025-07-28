@@ -99,7 +99,7 @@ for year in range(2005,2024):
         data[year].drop(labels=f'{wl}_name', axis=1, inplace=True)
 ```
 
-After the above processing, the yearly data was concatenated to form a much larger file containing all data, with a dictionary of player names and ids written to ```players.json```. As there was missing data for player rank, and this was a column that I wanted to use, a high value of 3000 filled missing values.
+After the above processing, the yearly data was concatenated to form a much larger file containing all data, with a dictionary of player names and ids written to ```players.json```. As there was missing data for player rank, and this was a column that I wanted to use, a high rank of 3000 filled missing values.
 
 ```python
 df = pd.concat([data[i] for i in data], ignore_index=True)
@@ -117,6 +117,7 @@ with open("players.json", "w") as outfile:
 Displaying the top of the processed data with ```df.head()``` shows that all columns are now in a format that can train a model.
 
 The first five rows of the final processed DataFrame:
+
 | | surface | tourney_level | best_of | year | player_1_id | player_2_id | player_1_hand | player_2_hand | player_1_ht | player_2_ht | player_1_rank | player_2_rank | winner |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 0 | 2.0 | 6.0 | 3 | 2005 | 201527 | 201423 | 1.0 | 1.0 | 170.0 | 175.0 | 1024.0 | 135.0 | 2 |
