@@ -1,7 +1,7 @@
 # WTA Tennis Match Prediction
 
 
-This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2024 French Open. I knew very little about Python-based machine learning at that point, so it's all quite messy, and I definitely didn't pick an easy dataset to start with. However, this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model. I have since added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
+This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2023 US Open. I knew very little about Python-based machine learning at that point, so it's all quite messy, and I definitely didn't pick an easy dataset to start with. However, this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model. I have since added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
 
 ---
 
@@ -29,7 +29,7 @@ data_dir = # directory containing CSV results files
 ```
 ## Data Loading and Preprocessing
 
-The data used was taken from https://github.com/JeffSackmann/tennis_wta, I used the data for full seasons between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
+The data used was taken from https://github.com/JeffSackmann/tennis_wta, I used the data for matches between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
 ```python
 data = {}
 player_data = {}
