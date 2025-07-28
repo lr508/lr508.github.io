@@ -6,4 +6,4 @@ The aim of this project will be to predict the occurrence of mental health probl
 
 # Introduction
 
-This is another binary classification project, with the data acquired from [https://www.kaggle.com/datasets/adilshamim8/exploring-mental-health-data/data](https://www.kaggle.com/datasets/adilshamim8/exploring-mental-health-data/data).
+This is another binary classification project, with the data acquired from <a href="https://www.kaggle.com/datasets/adilshamim8/exploring-mental-health-data/data" target="_blank">https://www.kaggle.com/datasets/adilshamim8/exploring-mental-health-data/data</a>.
