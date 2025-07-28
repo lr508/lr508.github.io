@@ -161,8 +161,6 @@ Prediction Output
 # Neural Network Attempt (July 2025)
 
 ```python
-
-
 import keras
 from keras import layers
 import torch
