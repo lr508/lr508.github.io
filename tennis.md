@@ -9,7 +9,7 @@ This was my first foray into the realm of machine-learning without any chemistry
 
 The aim of this project was to use past WTA match data to attempt to successfully predict tennis results.
 
----
+## Module importing
 
 The module importing section is messy as I was learning and so imported many modules that I didn't actually end up using.
 
@@ -154,15 +154,14 @@ print(model.predict([[year,tourney_level,surface,best_of,player_data[player_1]['
 ```
 
 Prediction Output
-```
+```python
 [2]
 ```
 
 # Neural Network Attempt
 Code added July 2025.
 
-```
-Python
+```python
 
 
 import keras
@@ -179,7 +178,7 @@ model = keras.Sequential([
     layers.Dense(1, activation='sigmoid'),
 ])
 ```
-```
+```python
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy',
@@ -192,7 +191,7 @@ early_stopping = keras.callbacks.EarlyStopping(
     restore_best_weights=True,
 )
 ```
-```
+```python
 history = model.fit(
     X_train, y_train,
     validation_data=(X_valid, y_valid),
@@ -228,7 +227,14 @@ Epoch 34/1000
 Results
 
 The model achieved the following performance on the validation set:
-Best Validation Loss: 0.6192
-Best Validation Accuracy: 0.6530
+
+Best Validation Loss: 0.6192 <br>
+Best Validation Accuracy: 0.6530<br>
+
 Figure 1: Training and validation loss over epochs.
+
+ ![alt text](images/nn_loss.png)
+
 Figure 2: Training and validation accuracy over epochs.
+
+![alt text](images/nn_b_accuracy.png)
