@@ -158,8 +158,7 @@ Prediction Output
 [2]
 ```
 
-# Neural Network Attempt
-Code added July 2025.
+# Neural Network Attempt (July 2025)
 
 ```python
 
