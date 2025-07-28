@@ -1,4 +1,5 @@
-# WTA Tennis Match Predictor
+# WTA Tennis Match Prediction
+
 
 This was my first foray into the realm of machine-learning without any chemistry involved. I was inspired to do this during the 2024 French Open. I knew very little about Python-based machine learning at that point, so it's all quite messy, and I definitely didn't pick an easy dataset to start with. However, this project taught me lots of useful things about cleaning and processing data to allow it to be used to train a model. I have since added more recent matches and code to test a recent installation of keras, using a Pytorch backend.
 
@@ -8,13 +9,10 @@ This was my first foray into the realm of machine-learning without any chemistry
 
 The aim of this project was to use past WTA match data to attempt to successfully predict tennis results.
 
+---
 
-## Data Loading and Preprocessing
+The module importing section is messy as I was learning and so imported many modules that I didn't actually end up using.
 
-The first step involves importing the necessary libraries and loading the dataset. This section is messy as I was learning and so imported many modules that I didn't actually end up using.
-The data co
-
-### Code Block 1: Imports
 ```python
 import sklearn
 import pandas as pd
@@ -27,18 +25,16 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, LabelBinarizer
 import json
 import numpy as np
-data_dir = # folder containing CSV files of results
+data_dir = # directory containing CSV results files
 ```
-Code Block 2: Data Aggregation and Cleaning
-This block reads the match data for each year, cleans it by dropping rows with missing values (except for player ranks), and maps categorical features like surface and tournament level to numerical values.
+## Data Loading and Preprocessing
 
-```
-Python
-
+The data used was taken from https://github.com/JeffSackmann/tennis_wta, I used the data for full seasons between 2023 (current, at the time of this project) and 2005, as that seemed to be a reasonable point to go back to, as the majority of current players were not playing back then.
+```python
 data = {}
 player_data = {}
 tracked_stats = ['id','hand','ht','rank'] 
-for year in range(2005,2025):
+for year in range(2005,2024):
     current_year = pd.read_csv(data_dir + f'wta_matches_{year}.csv', usecols=['surface','tourney_level','winner_name','loser_name','winner_id', 'loser_id', 'winner_rank', 'loser_rank', 'best_of','winner_hand','loser_hand','winner_ht','loser_ht'])
     current_year = current_year.drop(current_year[current_year['surface'] == 'Carpet'].index)
     for i in current_year.iterrows():
@@ -48,7 +44,7 @@ for year in range(2005,2025):
                     continue
                 else:
                     data_year = current_year.drop(i[0])
-    data_year['surface'] = data_year['surface'].map({'Hard':2,'Clay':3,'Grass':1})
+    data_year['surface'] = data_year['surface'].map({'Hard':1,'Clay':2,'Grass':3})
     data_year['tourney_level'] = data_year['tourney_level'].map({'G':1,'F':2,'O':2,'PM':3,'P':4,'I':5,'T1':3,'T2':4,'T3':5,'T4':5,'T5':5,'D':6})
 
     for wl in ['winner','loser']:
@@ -92,17 +88,15 @@ for year in range(2005,2025):
     for wl in ['winner','loser']:
         data[year].drop(labels=f'{wl}_name', axis=1, inplace=True)
 ```
+
+
 Data Transformation
-The yearly data is concatenated into a single DataFrame. Missing rank values are filled, and the data is saved to CSV and JSON files for future use.
-
+The yearly data is combined into a single DataFrame, and final cleaning steps are performed.
 Code Block 3: Final DataFrame Preparation
-```
-Python
-
+```python
 df = pd.concat([data[i] for i in data], ignore_index=True)
 
 df.fillna(3000, inplace=True)
-df['winner'] = df['winner'].map({1.0:1.0,2.0:0.0})
 
 json_object = json.dumps(player_data, indent=4)
 df.to_csv('tennis.csv', index=False)
@@ -110,40 +104,66 @@ df.to_csv('tennis.csv', index=False)
 # Writing to sample.json
 with open("players.json", "w") as outfile:
     outfile.write(json_object)
-df.head()
 ```
+
+Code Block 4: Display DataFrame
+```python
+df
+```
+
 DataFrame Head
 The first five rows of the final processed DataFrame:
-
 | | surface | tourney_level | best_of | year | player_1_id | player_2_id | player_1_hand | player_2_hand | player_1_ht | player_2_ht | player_1_rank | player_2_rank | winner |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 0 | 3.0 | 6.0 | 3 | 2005 | 201423 | 201527 | 1.0 | 1.0 | 175.0 | 170.0 | 135.0 | 1024.0 | 1.0 |
-| 1 | 3.0 | 6.0 | 3 | 2005 | 201481 | 201490 | 1.0 | 1.0 | 165.0 | 170.0 | 3000.0 | 280.0 | 1.0 |
-| 2 | 3.0 | 6.0 | 3 | 2005 | 201490 | 201423 | 1.0 | 1.0 | 170.0 | 175.0 | 280.0 | 135.0 | 1.0 |
-| 3 | 3.0 | 6.0 | 3 | 2005 | 201335 | 201481 | 1.0 | 1.0 | 172.0 | 165.0 | 3000.0 | 3000.0 | 0.0 |
-| 4 | 2.0 | 6.0 | 3 | 2005 | 200055 | 200079 | 1.0 | 1.0 | 172.0 | 175.0 | 71.0 | 14.0 | 0.0 |
+| 0 | 2.0 | 6.0 | 3 | 2005 | 201527 | 201423 | 1.0 | 1.0 | 170.0 | 175.0 | 1024.0 | 135.0 | 2 |
+| 1 | 2.0 | 6.0 | 3 | 2005 | 201481 | 201490 | 1.0 | 1.0 | 165.0 | 170.0 | 3000.0 | 280.0 | 1 |
+| 2 | 2.0 | 6.0 | 3 | 2005 | 201423 | 201490 | 1.0 | 1.0 | 175.0 | 170.0 | 135.0 | 280.0 | 2 |
+| 3 | 2.0 | 6.0 | 3 | 2005 | 201335 | 201481 | 1.0 | 1.0 | 172.0 | 165.0 | 3000.0 | 3000.0 | 2 |
+| 4 | 1.0 | 6.0 | 3 | 2005 | 200079 | 200055 | 1.0 | 1.0 | 175.0 | 172.0 | 14.0 | 71.0 | 1 |
 
-Model Training and Evaluation
-A neural network is built using Keras to predict match outcomes. The data is split into training and validation sets, and the model's performance is evaluated.
 
-Code Block 4: Feature Selection and Data Splitting
+Model Training
+A Random Forest Classifier is trained on the prepared data.
+Code Block 5: Model Fitting
+```python
+model = RandomForestClassifier(verbose=1,n_estimators=2000,n_jobs=-1,bootstrap=False)
+model.fit(df[['year','tourney_level','surface','best_of','player_1_id','player_1_rank','player_1_hand','player_1_ht','player_2_id','player_2_rank','player_2_hand','player_2_ht']].values,df['winner'])
+```
+
+Code Block 6: Saving the Model
+The trained model is saved to a file using joblib.
+```python
+from joblib import dump, load
+dump(model, 'WTA_model.joblib') 
+```
+
+Making a Prediction
+An example prediction is made for a match between Iga Swiatek and Aryna Sabalenka.
+Code Block 7: Prediction Example
+```python
+year = 2023
+tourney_level = 1
+surface = 1
+best_of = 3
+player_1 = 'Iga Swiatek'
+player_1_rank = 6
+player_2 = 'Aryna Sabalenka'
+player_2_rank =2
+
+print(model.predict([[year,tourney_level,surface,best_of,player_data[player_1]['id'],player_1_rank,player_data[player_1]['hand'],player_data[player_1]['ht'],player_data[player_2]['id'],player_2_rank,player_data[player_2]['hand'],player_data[player_2]['ht']]]))
+```
+
+Prediction Output
+```
+[2]
+```
+
+# Neural Network Attempt
+Code added July 2025.
+
 ```
 Python
 
-features=["surface","tourney_level","player_1_hand","player_2_hand","player_1_ht","player_2_ht","player_1_rank","player_2_rank","winner"]
-df=df[features]
-df_train = df.sample(frac=0.7, random_state=0)
-df_valid = df.drop(df_train.index)
-
-X_train = df_train.drop('winner', axis=1)
-X_valid = df_valid.drop('winner', axis=1)
-y_train = df_train['winner']
-y_valid = df_valid['winner']
-X_train.shape[1]
-```
-Code Block 5: Neural Network Model
-```
-Python
 
 import keras
 from keras import layers
@@ -158,7 +178,8 @@ model = keras.Sequential([
     layers.Dense(256, activation='relu'),    
     layers.Dense(1, activation='sigmoid'),
 ])
-
+```
+```
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy',
@@ -170,7 +191,8 @@ early_stopping = keras.callbacks.EarlyStopping(
     min_delta=0.001,
     restore_best_weights=True,
 )
-
+```
+```
 history = model.fit(
     X_train, y_train,
     validation_data=(X_valid, y_valid),
@@ -188,7 +210,10 @@ print(("Best Validation Loss: {:0.4f}" +
       .format(history_df['val_loss'].min(), 
               history_df['val_binary_accuracy'].max()))
 ```
+
+
 Training History
+
 ```
 Epoch 1/1000
 73/73 ━━━━━━━━━━━━━━━━━━━━ 1s 11ms/step - binary_accuracy: 0.5821 - loss: 1.2507 - val_binary_accuracy: 0.6393 - val_loss: 0.6940
@@ -198,15 +223,12 @@ Epoch 2/1000
 Epoch 34/1000
 73/73 ━━━━━━━━━━━━━━━━━━━━ 1s 13ms/step - binary_accuracy: 0.6544 - loss: 0.6202 - val_binary_accuracy: 0.6478 - val_loss: 0.6205
 ```
+
+
 Results
+
 The model achieved the following performance on the validation set:
-
 Best Validation Loss: 0.6192
-
 Best Validation Accuracy: 0.6530
-
 Figure 1: Training and validation loss over epochs.
-
 Figure 2: Training and validation accuracy over epochs.
-
-
