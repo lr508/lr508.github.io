@@ -279,7 +279,6 @@ X_valid_imputed = pd.DataFrame(simple_imputer.transform(X_valid))
 # Imputation removed column names; put them back
 X_train_imputed.columns = X_train.columns
 X_valid_imputed.columns = X_valid.columns
-X_train.head()
 ```
 Here we used the imputer to fill in missing values in the dataframe. We can now fit the model.
 
