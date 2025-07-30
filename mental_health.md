@@ -307,3 +307,9 @@ Here we used a grid search to find the optimum number of estimators for our rand
 The accuracy reaches a maximum value of approximately 92.76 % at around 300 estimators, so this is the value we will use going forward. This is a pretty good accuracy value already, but in the next section we will try to increase this.
 
 # Improving the accuracy
+
+There are a few things we can try to increase the accuracy:
+
+- Tweak the features used
+- Handle categoric and missing values differently
+- Scale values
