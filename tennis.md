@@ -257,11 +257,11 @@ Best Validation Accuracy: 0.6530<br>
 
 Figure 1: Training and validation loss over epochs.
 
- ![Neural network loss](images/nn_loss.png)
+ ![Neural network loss](images/project_1/nn_loss.png)
 
 Figure 2: Training and validation accuracy over epochs.
 
-![Neural network binary accuracy](images/nn_b_accuracy.png)
+![Neural network binary accuracy](images/project_1/nn_b_accuracy.png)
 
 This gives a model with an accuracy of approximately 65 %, which isn't amazing but it isn't bad for a first attempt in something as unpredictable as sport. This model didn't use the player IDs in its prediction. Interestingly, when player IDs were included in the model, the accuracy dropped to 49.5 %. Presumably there just wasn't enough data for the model to identify the connection between some IDs and a higher win rate. It's possible that using one hot encoding for the player names would improve this, although this would require many more columns in the dataset.
 
