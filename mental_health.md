@@ -16,8 +16,9 @@ The process I intend to follow is:
 - Employ some sort of metric to validate the model against.
 - Use a grid search as well as altering which features are used in order to fit the best model.
 
+# Creating the model
 
-
+Here I imported the packages I used during the project, followed by importing the data we used. ```data.head()``` allows us to have a look at the top of the table.
 ```python
 import pandas as pd
 import math
@@ -28,31 +29,11 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
-```
-
-
-```python
 data = pd.read_csv("./train.csv")
 data.head()
 ```
 
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -199,8 +180,9 @@ data.head()
 </table>
 </div>
 
+## Preparing the data
 
-
+From this we can see multiple columns of categoric data, as well as columns with missing values. This means we need to find a way to deal with both of these problems before we fit our model.
 
 ```python
 features = ['Gender', 'Age', 'Working Professional or Student', 'Pressure',
@@ -214,19 +196,20 @@ for column in contains_na:
     nan_percent = (data[column].isna().sum()/len(data.index))*100
     print(f"{column} - {nan_percent.round(5)} % Missing data")
 ```
+```features``` is the columns we end up fitting the model with (more on that later). Here the code outputs what we can see below. This was to decide what to do with each column containing missing values. Generally 50 % missing values or more in a column means that you want to omit the column. 
+```
+Profession - 26.03412 % Missing data
+Academic Pressure - 80.17271 % Missing data
+Work Pressure - 19.84222 % Missing data
+CGPA - 80.172 % Missing data
+Study Satisfaction - 80.17271 % Missing data
+Job Satisfaction - 19.83653 % Missing data
+Dietary Habits - 0.00284 % Missing data
+Degree - 0.00142 % Missing data
+Financial Stress - 0.00284 % Missing data
+```
 
-    Profession - 26.03412 % Missing data
-    Academic Pressure - 80.17271 % Missing data
-    Work Pressure - 19.84222 % Missing data
-    CGPA - 80.172 % Missing data
-    Study Satisfaction - 80.17271 % Missing data
-    Job Satisfaction - 19.83653 % Missing data
-    Dietary Habits - 0.00284 % Missing data
-    Degree - 0.00142 % Missing data
-    Financial Stress - 0.00284 % Missing data
-
-
-
+This 50 % rule, as-written, would mean that we remove the "Academic Pressure" and "Study Satisfaction" columns, as they both contain only 20 % of the data. However, from ```data.head()``` and looking more closely at the data, we can see that entries either contain an "Academic Pressure" or "Work Pressure" value, and either a "Study Satisfaction" or "Job Satisfaction" value, meaning that combining these into two columns from four makes a lot of sense:
 ```python
 content_list = {"Pressure":[],"Satisfaction":[]}
 combine_dict = {"Pressure":["Work Pressure","Academic Pressure"],"Satisfaction":["Job Satisfaction","Study Satisfaction"]}
@@ -240,11 +223,26 @@ for index,row in data.iterrows():
             content_list[case].append(np.nan)
 data.insert(loc=6,column="Pressure",value=content_list["Pressure"])
 data.insert(loc=9,column="Satisfaction",value=content_list["Satisfaction"])
-# data = data.drop(["Work Pressure","Academic Pressure","Job Satisfaction","Study Satisfaction","CGPA","Profession","Degree","Name","id"],axis=1)
-# data.head()
-
-
+data = data.drop(["Work Pressure","Academic Pressure","Job Satisfaction","Study Satisfaction"],axis=1)
 ```
+Following this, performing the same calculation on the columns with missing values:
+```python
+contains_na = data.columns[data.isna().any()].tolist()
+for column in contains_na:
+    nan_percent = (data[column].isna().sum()/len(data.index))*100
+    print(f"{column} - {nan_percent.round(5)} % Missing data")
+```
+```
+Pressure - 0.01493 % Missing data
+Profession - 26.03412 % Missing data
+Satisfaction - 0.01066 % Missing data
+CGPA - 80.172 % Missing data
+Dietary Habits - 0.00284 % Missing data
+Degree - 0.00142 % Missing data
+Financial Stress - 0.00284 % Missing data
+```
+We now find that the only column with a high proportion of missing values is the "CGPA" value. As this column only applies to students, of which approximately only 20 % of the entries are, I decided to drop this column from the features used to fit the model.
+
 
 
 ```python
@@ -252,21 +250,25 @@ X = data[features]
 y = data["Depression"]
 X_train, X_valid, y_train, y_valid = train_test_split(X, y, train_size=0.8, test_size=0.2,random_state=0)
 ```
-
+Here the data is split into a test and validation set, with an 80/20 split.
 
 ```python
 s = (X_train.dtypes == 'object')
 categoric_features = list(s[s].index)
 print(categoric_features)
+```
 
+```
+['Gender', 'Working Professional or Student', 'Have you ever had suicidal thoughts ?', 'Family History of Mental Illness']
+```
+Here we can see the categoric variables present in our list of features from the top of the notebook. These are the columns that will need to be encoded. The ordinal encoder was used for all columns as any columns with over two unique answers contained many unique responses, which would result in many columns being added through one-hot encoder, thus not being very feasible.
+
+```
 ordinal_encoder = OrdinalEncoder()
 X_train[categoric_features] = ordinal_encoder.fit_transform(X_train[categoric_features])
 X_valid[categoric_features] = ordinal_encoder.transform(X_valid[categoric_features])
 ```
-
-    ['Gender', 'Working Professional or Student', 'Have you ever had suicidal thoughts ?', 'Family History of Mental Illness']
-
-
+The "City", "Sleep Duration" and "Dietary Habits" columns were removed due to the number of unique responses resulting in errors when the encoder attempted to encode the validation data. It was easier just to remove the columns with problematic values.
 
 ```python
 simple_imputer = SimpleImputer()
@@ -279,89 +281,9 @@ X_train_imputed.columns = X_train.columns
 X_valid_imputed.columns = X_valid.columns
 X_train.head()
 ```
+Here we used the imputer to fill in missing values in the dataframe. We can now fit the model.
 
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Gender</th>
-      <th>Age</th>
-      <th>Working Professional or Student</th>
-      <th>Pressure</th>
-      <th>Satisfaction</th>
-      <th>Have you ever had suicidal thoughts ?</th>
-      <th>Work/Study Hours</th>
-      <th>Financial Stress</th>
-      <th>Family History of Mental Illness</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>125323</th>
-      <td>0.0</td>
-      <td>29.0</td>
-      <td>0.0</td>
-      <td>5.0</td>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>8.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>118204</th>
-      <td>0.0</td>
-      <td>37.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>4.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>4.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>371</th>
-      <td>1.0</td>
-      <td>53.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>1.0</td>
-      <td>12.0</td>
-      <td>2.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>132975</th>
-      <td>0.0</td>
-      <td>41.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>0.0</td>
-      <td>5.0</td>
-      <td>3.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>36674</th>
-      <td>1.0</td>
-      <td>44.0</td>
-      <td>1.0</td>
-      <td>3.0</td>
-      <td>3.0</td>
-      <td>0.0</td>
-      <td>10.0</td>
-      <td>3.0</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+## Fitting the model
 
 ```python
 scores = []
@@ -378,8 +300,11 @@ plt.xlabel("Estimators")
 plt.ylabel("Accuracy Score")
 plt.show()
 ```
+Here we used a grid search to find the optimum number of estimators for our random forest by fitting models with estimator values of between 100 and 950 and calculating the accuracy scores for each. The results of this can be seen in the figure below.
 
 
 ![Random forest grid search](images/project_2/grid_search_forest.png)
 
+The accuracy reaches a maximum value of approximately 92.76 % at around 300 estimators, so this is the value we will use going forward. This is a pretty good accuracy value already, but in the next section we will try to increase this.
 
+# Improving the accuracy
