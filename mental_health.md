@@ -380,13 +380,6 @@ plt.show()
 ```
 
 
-    
-![png](mental_health_files/mental_health_8_0.png)
-    
+![Random forest grid search](images/project_2/grid_search_forest.png)
 
-
-
-```python
-
-```
 
