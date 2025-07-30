@@ -180,9 +180,9 @@ data.head()
 </table>
 </div>
 
-## Preparing the data
-
 From this we can see multiple columns of categoric data, as well as columns with missing values. This means we need to find a way to deal with both of these problems before we fit our model.
+
+## Preparing the data
 
 ```python
 features = ['Gender', 'Age', 'Working Professional or Student', 'Pressure',
