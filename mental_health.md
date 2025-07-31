@@ -21,7 +21,6 @@ The process I intend to follow is:
 Here I imported the packages I used during the project, followed by importing the data we used. ```data.head()``` allows us to have a look at the top of the table.
 ```python
 import pandas as pd
-import math
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
