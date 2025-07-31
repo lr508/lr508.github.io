@@ -315,6 +315,10 @@ Now we have a value for a good number of estimators, we can perform another sear
 -  The minimum number of samples required to split a node, with values of 2, 5 and 10.
 -  The criterion used to measure the quality of a split, with values of "gini" and "entropy".
 
+
+<details>
+<summary>Grid search code</summary>
+  
 ```python
 scores = []
 estimator_numbers = []
@@ -334,11 +338,12 @@ for depth in param_grid["max_depth"]:
             hyperparams.append([depth,min_samples,crit])
             scores.append(score)
 max_score = max(scores)
-print(f"Params for highest score ({max_score}) = {hyperparams[scores.index(max_score)]}")
+print(f"Hyperparameters for highest accuracy score ({max_score}) = {hyperparams[scores.index(max_score)]}")
 ```
 ```
-Params for highest score (0.9346126510305615) = [None, 10, 'gini']
+Hyperparameters for highest accuracy score (0.9346126510305615) = [None, 10, 'gini']
 ```
+</details>
 
 After iterating through all combinations of these hyperparameters, the maximum accuracy, achieved with [None, 10, 'gini'], is 93.46 %.
 
