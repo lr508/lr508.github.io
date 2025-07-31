@@ -317,7 +317,7 @@ Now we have a value for a good number of estimators, we can perform another sear
 
 
 <details>
-<summary>**Grid search code**</summary>
+<summary><strong>Grid search code</strong></summary>
   
 ```python
 scores = []
