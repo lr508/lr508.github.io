@@ -283,6 +283,8 @@ Here we used the imputer to fill in missing values in the dataframe. We can now 
 
 ## Fitting the model
 
+### Optimum number of estimators
+
 ```python
 scores = []
 estimator_numbers = []
@@ -298,12 +300,49 @@ plt.xlabel("Estimators")
 plt.ylabel("Accuracy Score")
 plt.show()
 ```
-Here we used a grid search to find the optimum number of estimators for our random forest by fitting models with estimator values of between 100 and 950 and calculating the accuracy scores for each. The results of this can be seen in the figure below.
+Here we did a search to find the optimum number of estimators for our random forest by fitting models with estimator values of between 100 and 950 and calculating the accuracy scores for each. The results of this can be seen in the figure below.
 
 
 ![Random forest grid search](images/project_2/grid_search_forest.png)
 
-The accuracy reaches a maximum value of approximately 92.76 % at around 300 estimators, so this is the value we will use going forward. This is a pretty good accuracy value already, but in the next section we will try to increase this.
+The accuracy reaches a maximum value of approximately 92.76 % at around 300 estimators, so this is the value we will use going forward. 
+
+### Grid search for other hyperparameters
+
+Now we have a value for a good number of estimators, we can perform another search, this time in a 3D grid. The hyperparameters we will be seasrching are:
+
+- The max depth of each tree, with values of 3, 5, 10 and None.
+-  The minimum number of samples required to split a node, with values of 2, 5 and 10.
+-  The criterion used to measure the quality of a split, with values of "gini" and "entropy".
+
+```python
+scores = []
+estimator_numbers = []
+hyperparams = []
+param_grid = {
+    'max_depth': [3, 5, 10, None],
+    'min_samples_split': [2, 5, 10],
+    'criterion': ['gini', 'entropy']
+}
+for depth in param_grid["max_depth"]:
+    for min_samples in param_grid["min_samples_split"]:
+        for crit in param_grid["criterion"]:
+            model = RandomForestClassifier(n_estimators=300,max_depth=depth,min_samples_split=min_samples,criterion=crit)
+            model.fit(X_train_imputed,y_train)
+            y_pred = model.predict(X_valid_imputed)
+            score = accuracy_score(y_valid,y_pred)
+            hyperparams.append([depth,min_samples,crit])
+            scores.append(score)
+max_score = max(scores)
+print(f"Params for highest score ({max_score}) = {hyperparams[scores.index(max_score)]}")
+```
+```
+Params for highest score (0.9346126510305615) = [None, 10, 'gini']
+```
+
+After iterating through all combinations of these hyperparameters, the maximum accuracy, achieved with [None, 10, 'gini'], is 93.46 %.
+
+This is a pretty good accuracy value already, but in the next section we will try to increase this.
 
 # Improving the accuracy
 
