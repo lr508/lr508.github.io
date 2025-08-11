@@ -7,56 +7,508 @@ The data used (accurate as of 11/08/2025) can be viewed in the table below:
 <details>
 <summary><strong>BotC Games</strong></summary>
 
-| Game Number | Date       | Type        | Script                           | Alignment | Character            | Outcome | Win %       |
-|-------------|------------|-------------|----------------------------------|-----------|----------------------|---------|-------------|
-|           1 | 26/06/2024 | Normal      | Trouble Brewing                  | Good      | Chef                 | Loss    | 0           |
-|           2 | 26/06/2024 | Normal      | Trouble Brewing                  | Good      | Mayor                | Loss    | 0           |
-|           3 | 01/07/2024 | Normal      | My Beloved Monster               | Good      | Balloonist           | Loss    | 0           |
-|           4 | 01/07/2024 | Normal      | Land Of The Midnight Sun         | Good      | Clockmaker           | Win     | 25          |
-|           5 | 01/07/2024 | Teensyville | Race To The Bottom               | Evil      | Vortox               | Loss    | 20          |
-|           6 | 17/07/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 33.33333333 |
-|           7 | 17/07/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 42.85714286 |
-|           8 | 24/07/2024 | Normal      | Trouble Brewing                  | Good      | Saint                | Win     | 50          |
-|           9 | 24/07/2024 | Normal      | Trouble Brewing                  | Evil      | Spy                  | Win     | 55.55555556 |
-|          10 | 31/07/2024 | Normal      | Bad Moon Rising                  | Evil      | Godfather            | Loss    | 50          |
-|          11 | 31/07/2024 | Normal      | Sects & Violets                  | Good      | Mathematician        | Win     | 54.54545455 |
-|          12 | 17/08/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 58.33333333 |
-|          13 | 24/08/2024 | Normal      | A Perfect Place                  | Evil      | Cerenovus            | Loss    | 53.84615385 |
-|          14 | 30/08/2024 | Normal      | Back To School                   | Good      | Librarian            | Win     | 57.14285714 |
-|          15 | 30/08/2024 | Normal      | (You Will Never) Break The Chain | Good      | Sailor               | Win     | 60          |
-|          16 | 31/08/2024 | Normal      | Trouble Brewing                  | Good      | Recluse              | Loss    | 56.25       |
-|          17 | 31/08/2024 | Normal      | Sects & Violets                  | Evil      | Cerenovus            | Win     | 58.82352941 |
-|          18 | 04/09/2024 | Normal      | Bad Moon Rising                  | Good      | Pacifist             | Loss    | 55.55555556 |
-|          19 | 04/09/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 57.89473684 |
-|          20 | 07/09/2024 | Normal      | Sects & Violets                  | Good      | Philosopher (Savant) | Win     | 60          |
-|          21 | 07/09/2024 | Normal      | Trouble Brewing                  | Good      | Monk                 | Loss    | 57.14285714 |
-|          22 | 07/09/2024 | Normal      | Trouble Brewing                  | Good      | Chef                 | Win     | 59.09090909 |
-|          23 | 07/09/2024 | Normal      | Trouble Brewing                  | Good      | Recluse              | Loss    | 56.52173913 |
-|          24 | 07/09/2024 | Normal      | Smoked Onions                    | Good      | Noble (Drunk)        | Win     | 58.33333333 |
-|          25 | 14/09/2024 | Normal      | Sects & Violets                  | Good      | Dreamer              | Loss    | 56          |
-|          26 | 14/09/2024 | Normal      | Trouble Brewing                  | Good      | Mayor                | Loss    | 53.84615385 |
-|          27 | 21/09/2024 | Normal      | Sects & Violets                  | Good      | Town Crier           | Loss    | 51.85185185 |
-|          28 | 21/09/2024 | Normal      | Bad Moon Rising                  | Good      | Exorcist             | Loss    | 50          |
-|          29 | 21/09/2024 | Normal      | Trouble Brewing                  | Good      | Washerwoman          | Loss    | 48.27586207 |
-|          30 | 21/09/2024 | Normal      | Trouble Brewing                  | Good      | Investigator         | Win     | 50          |
-|          31 | 27/09/2024 | Normal      | Dark and Stormy-caught           | Good      | Noble                | Win     | 51.61290323 |
-|          32 | 27/09/2024 | Normal      | Malchemy                         | Evil      | Imp                  | Loss    | 50          |
-|          33 | 27/09/2024 | Normal      | Malchemy                         | Evil      | Fang Gu              | Win     | 51.51515152 |
-|          34 | 27/09/2024 | Normal      | Induced Labour                   | Good      | Shugenja             | Loss    | 50          |
-|          35 | 28/09/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 51.42857143 |
-|          36 | 28/09/2024 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Loss    | 50          |
-|          37 | 28/09/2024 | Normal      | Sects & Violets                  | Good      | Artist               | Win     | 51.35135135 |
-|          38 | 29/05/2025 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Win     | 52.63157895 |
-|          39 | 29/05/2025 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Loss    | 51.28205128 |
-|          40 | 29/05/2025 | Normal      | Trouble Brewing                  | Evil      | Poisoner             | Loss    | 50          |
-|          41 | 18/06/2025 | Normal      | Trouble Brewing                  | Good      | Ravenkeeper          | Loss    | 48.7804878  |
-|          42 | 18/06/2025 | Normal      | Trouble Brewing                  | Good      | Soldier              | Loss    | 47.61904762 |
-|          43 | 26/06/2025 | Normal      | Trouble Brewing                  | Evil      | Imp                  | Loss    | 46.51162791 |
-|          44 | 26/06/2025 | Normal      | Trouble Brewing                  | Evil      | Spy                  | Win     | 47.72727273 |
-|          45 | 26/06/2025 | Normal      | Trouble Brewing                  | Good      | Recluse              | Win     | 48.88888889 |
-|          46 | 06/08/2025 | Normal      | Sects & Violets                  | Good      | Sweetheart           | Loss    | 47.82608696 |
-|          47 | 06/08/2025 | Normal      | Sects & Violets                  | Good      | Barber               | Loss    | 46.80851064 |
-|          48 | 06/08/2025 | Normal      | Sects & Violets                  | Good      | Flower Girl          | Win     | 47.91666667 |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-0pky">Game Number</th>
+    <th class="tg-0pky">Date</th>
+    <th class="tg-0pky">Type</th>
+    <th class="tg-0pky">Script</th>
+    <th class="tg-0pky">Alignment</th>
+    <th class="tg-0pky">Character</th>
+    <th class="tg-0pky">Outcome</th>
+    <th class="tg-0pky">Win %</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-dvpl">1</td>
+    <td class="tg-dvpl">26/06/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Chef</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">0</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">2</td>
+    <td class="tg-dvpl">26/06/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Mayor</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">0</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">3</td>
+    <td class="tg-dvpl">01/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">My Beloved Monster</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Balloonist</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">0</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">4</td>
+    <td class="tg-dvpl">01/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Land Of The Midnight Sun</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Clockmaker</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">25</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">5</td>
+    <td class="tg-dvpl">01/07/2024</td>
+    <td class="tg-0pky">Teensyville</td>
+    <td class="tg-0pky">Race To The Bottom</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Vortox</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">20</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">6</td>
+    <td class="tg-dvpl">17/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">33.33333333</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">7</td>
+    <td class="tg-dvpl">17/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">42.85714286</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">8</td>
+    <td class="tg-dvpl">24/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Saint</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">9</td>
+    <td class="tg-dvpl">24/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Spy</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">55.55555556</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">10</td>
+    <td class="tg-dvpl">31/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Bad Moon Rising</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Godfather</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">11</td>
+    <td class="tg-dvpl">31/07/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Mathematician</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">54.54545455</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">12</td>
+    <td class="tg-dvpl">17/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">58.33333333</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">13</td>
+    <td class="tg-dvpl">24/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">A Perfect Place</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Cerenovus</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">53.84615385</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">14</td>
+    <td class="tg-dvpl">30/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Back To School</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Librarian</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">57.14285714</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">15</td>
+    <td class="tg-dvpl">30/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">(You Will Never) Break The Chain</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Sailor</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">60</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">16</td>
+    <td class="tg-dvpl">31/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Recluse</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">56.25</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">17</td>
+    <td class="tg-dvpl">31/08/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Cerenovus</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">58.82352941</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">18</td>
+    <td class="tg-dvpl">04/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Bad Moon Rising</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Pacifist</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">55.55555556</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">19</td>
+    <td class="tg-dvpl">04/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">57.89473684</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">20</td>
+    <td class="tg-dvpl">07/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Philosopher (Savant)</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">60</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">21</td>
+    <td class="tg-dvpl">07/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Monk</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">57.14285714</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">22</td>
+    <td class="tg-dvpl">07/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Chef</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">59.09090909</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">23</td>
+    <td class="tg-dvpl">07/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Recluse</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">56.52173913</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">24</td>
+    <td class="tg-dvpl">07/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Smoked Onions</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Noble (Drunk)</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">58.33333333</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">25</td>
+    <td class="tg-dvpl">14/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Dreamer</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">56</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">26</td>
+    <td class="tg-dvpl">14/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Mayor</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">53.84615385</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">27</td>
+    <td class="tg-dvpl">21/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Town Crier</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">51.85185185</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">28</td>
+    <td class="tg-dvpl">21/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Bad Moon Rising</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Exorcist</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">29</td>
+    <td class="tg-dvpl">21/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Washerwoman</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">48.27586207</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">30</td>
+    <td class="tg-dvpl">21/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Investigator</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">31</td>
+    <td class="tg-dvpl">27/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Dark and Stormy-caught</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Noble</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">51.61290323</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">32</td>
+    <td class="tg-dvpl">27/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Malchemy</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">33</td>
+    <td class="tg-dvpl">27/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Malchemy</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Fang Gu</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">51.51515152</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">34</td>
+    <td class="tg-dvpl">27/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Induced Labour</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Shugenja</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">35</td>
+    <td class="tg-dvpl">28/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">51.42857143</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">36</td>
+    <td class="tg-dvpl">28/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">37</td>
+    <td class="tg-dvpl">28/09/2024</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Artist</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">51.35135135</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">38</td>
+    <td class="tg-dvpl">29/05/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">52.63157895</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">39</td>
+    <td class="tg-dvpl">29/05/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">51.28205128</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">40</td>
+    <td class="tg-dvpl">29/05/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Poisoner</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">50</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">41</td>
+    <td class="tg-dvpl">18/06/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Ravenkeeper</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">48.7804878</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">42</td>
+    <td class="tg-dvpl">18/06/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Soldier</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">47.61904762</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">43</td>
+    <td class="tg-dvpl">26/06/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Imp</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">46.51162791</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">44</td>
+    <td class="tg-dvpl">26/06/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Evil</td>
+    <td class="tg-0pky">Spy</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">47.72727273</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">45</td>
+    <td class="tg-dvpl">26/06/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Trouble Brewing</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Recluse</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">48.88888889</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">46</td>
+    <td class="tg-dvpl">06/08/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Sweetheart</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">47.82608696</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">47</td>
+    <td class="tg-dvpl">06/08/2025</td>
+    <td class="tg-0pky">Normal </td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Barber</td>
+    <td class="tg-0pky">Loss</td>
+    <td class="tg-0pky">46.80851064</td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">48</td>
+    <td class="tg-dvpl">06/08/2025</td>
+    <td class="tg-0pky">Normal</td>
+    <td class="tg-0pky">Sects &amp; Violets</td>
+    <td class="tg-0pky">Good</td>
+    <td class="tg-0pky">Flower Girl</td>
+    <td class="tg-0pky">Win</td>
+    <td class="tg-0pky">47.91666667</td>
+  </tr>
+</tbody></table>
 
 </details>
 
