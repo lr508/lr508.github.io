@@ -64,3 +64,5 @@ The data used (accurate as of 11/08/2025) can be viewed in the table below:
 An image of the report can be seen below:
 
 ![BotC Graphs](images/project_3/BotC_stats.png)
+
+From this, we can see that my win percentage peaked at game 15, with a 60 % win rate, before decreasing after a string of losses to hover at around 45-50 %. Just over 25 % (6/23) of my wins have come as the imp, with a win rate of 56 % as evil and 43 % as good.
