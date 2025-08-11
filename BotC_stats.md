@@ -2,7 +2,7 @@
 
 Blood On The Clocktower is a social deduction game that I've played quite a few games of. I've been keeping track of the games I've played, and I thought that a good exercise in data visualisation would be to create a report of this data in Microsoft Power BI.
 
-The data used can be viewed in the table below:
+The data used (accurate as of 11/08/2025) can be viewed in the table below:
 
 <details>
 <summary><strong>BotC Games</strong></summary>
@@ -60,6 +60,7 @@ The data used can be viewed in the table below:
 
 </details>
 
-With the output seen below:
+
+An image of the report can be seen below:
 
 ![BotC Graphs](images/project_3/BotC_stats.png)
