@@ -6,7 +6,7 @@ The data used (accurate as of 11/08/2025) can be viewed in the table below:
 
 <details>
 <summary><strong>BotC Games</strong></summary>
-  
+
 |   Game Number | Date       | Type        | Script                           | Alignment   | Character            | Outcome   |   Win % |
 |--------------:|:-----------|:------------|:---------------------------------|:------------|:---------------------|:----------|--------:|
 |             1 | 26/06/2024 | Normal      | Trouble Brewing                  | Good        | Chef                 | Loss      |  0      |
@@ -57,6 +57,7 @@ The data used (accurate as of 11/08/2025) can be viewed in the table below:
 |            46 | 06/08/2025 | Normal      | Sects & Violets                  | Good        | Sweetheart           | Loss      | 47.8261 |
 |            47 | 06/08/2025 | Normal      | Sects & Violets                  | Good        | Barber               | Loss      | 46.8085 |
 |            48 | 06/08/2025 | Normal      | Sects & Violets                  | Good        | Flower Girl          | Win       | 47.9167 |
+
 
 </details>
 
