@@ -343,6 +343,7 @@ print(f"Hyperparameters for highest accuracy score ({max_score}) = {hyperparams[
 ```
 Hyperparameters for highest accuracy score (0.9346126510305615) = [None, 10, 'gini']
 ```
+
 </details>
 
 After iterating through all combinations of these hyperparameters, the maximum accuracy, achieved with [None, 10, 'gini'], is 93.46 %.
