@@ -509,3 +509,7 @@ An image of the report can be seen below:
 ![BotC Graphs](images/project_3/BotC_stats.png)
 
 From this, we can see that my win percentage peaked at game 15, with a 60 % win rate, before decreasing after a string of losses to hover at around 45-50 %. Just over 25 % (6/23) of my wins have come as the imp, with a win rate of 56 % as evil and 43 % as good.
+
+# Python GUI Dashboard
+
+One problem I had with the PowerBI dashboard was the inability for it to update automatically
