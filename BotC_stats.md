@@ -514,4 +514,180 @@ From this, we can see that my win percentage peaked at game 15, with a 60 % win 
 
 One problem I had with the Power BI dashboard was the inability for it to update automatically as I added games to the spreadsheet. To overcome this, I replicated the dashboard shown above as far as possible using the GUI Python module PyQT. I initially built the dashboard using tkinter, but upon further reading tkinter sounded slightly out of date, so replaced it with an alternative.
 
+The below code downloads the google sheet to the computer, loads it into a dataframe, then deletes the downloaded file.
+
+```python
+import requests
+import pandas as pd
+from matplotlib.figure import Figure
+import seaborn as sns
+import os
+import numpy as np
+import sys
+from matplotlib.backends.backend_qtagg import FigureCanvas
+from matplotlib.backends.backend_qtagg import \
+    NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.qt_compat import QtWidgets
+from PyQt6.QtWidgets import QApplication, QLabel, QWidget
+response = requests.get(spreadsheet_link)
+assert response.status_code == 200, 'Wrong status code'
+with open("BotC_stats.csv","wb") as file:
+    file.write(response.content)
+
+with open("BotC_stats.csv","r") as file:
+    lines = file.readlines()
+with open("BotC_stats.csv","w+") as file:
+    for line in lines:
+        if line[0] == ",":
+            break
+        else:
+            file.write(line)
+
+data = pd.read_csv("BotC_stats.csv")
+os.remove("BotC_stats.csv")
+data.columns = ["game_number","date","type","script","alignment","character","outcome","win_pc"]
+```
+
+Below defines all the plots used in the dashboard, each within their own function.
+
+```python
+titlesize=15
+def running_wins(data):
+    fig = Figure()
+    ax = fig.add_subplot()
+    ax.plot(data["game_number"],data["win_pc"])
+    fig.suptitle("Win Percentage Over Time",horizontalalignment='right',size=titlesize)
+    ax.set_xlabel("Game Number")
+    ax.set_ylabel("Win %")
+    return fig
+
+def current_games(data):
+    return len(data["outcome"]),len(data[data["outcome"].str.contains("Win")]),len(data[data["outcome"].str.contains("Loss")]),round((len(data[data["outcome"].str.contains("Win")])/len(data["outcome"]))*100,2)
+
+def character_wins(data):
+    def make_autopct(series):
+        def my_autopct(value):
+            if  round(value,1) == round(1/len(data[data["outcome"].str.contains("Win")])*100,1):
+                return " "
+            else:
+                return f"{round(float(value),2)}%"
+        return my_autopct
+    sns.set_theme(font_scale = 0.8)
+    win_data = data[data["outcome"].str.contains("Win")]
+    characters = list(win_data.value_counts("character",normalize=True).keys())
+    win_pc = win_data["character"].value_counts(normalize=True)
+    fig = Figure()
+    # figsize=(8,5)
+    ax = fig.add_subplot()
+    ax.pie(win_pc,labels=characters,startangle = 90,autopct=make_autopct(win_pc),counterclock=False,rotatelabels=True,radius=0.9)
+    fig.suptitle("Wins by Character Type",horizontalalignment='right',size=titlesize)
+    fig.text(0.1,0.85,f"All unmarked slices:\n{round(1/len(data[data["outcome"].str.contains("Win")])*100,1)} %",size=12)
+    fig.tight_layout()
+    return fig
+
+def win_loss_alignment(data):
+    alignments=["Good","Evil"]
+    y1 = [data[data["alignment"].str.contains(alignment)]["outcome"].value_counts()["Win"] for alignment in ["Good","Evil"]]
+    y2 = [data[data["alignment"].str.contains(alignment)]["outcome"].value_counts()["Loss"] for alignment in ["Good","Evil"]]
+    fig = Figure(figsize=(3,4))
+    ax = fig.add_subplot()
+    ax.bar(alignments, y1, color='g',label="Wins")
+    ax.bar(alignments, y2, bottom=y1, color='r',label="Losses")
+    fig.suptitle("Wins By Alignment",horizontalalignment='right',size=titlesize)
+    ax.set_ylabel("Games")
+    ax.set_xlabel("Alignment")
+    fig.legend()
+    fig.tight_layout()
+    return fig
+
+def most_played_chars(data):
+    characters = list(data["character"].value_counts().keys())
+    games = data["character"].value_counts()
+    for n,i in enumerate(games):
+        if i == 1:
+            characters=characters[:n]
+            break
+    
+    wins=[]
+    losses=[]
+    xticklist = np.array([n for n,i in enumerate(characters)])
+    xticklist = xticklist*1.25
+    loss_ticks = xticklist+0.25
+    win_ticks=xticklist-0.25
+    
+    for char in characters:
+        char_data = data[data["character"].str.contains(char)]
+        try:
+            wins.append(char_data["outcome"].value_counts()["Win"])
+        except:
+            wins.append(0)
+        try:
+            losses.append(char_data["outcome"].value_counts()["Loss"])
+        except:
+            losses.append(0)
+    fig = Figure()
+    # figsize=(5,5)
+    ax = fig.add_subplot()
+    ax.bar(win_ticks, wins, color='g',label="Wins",width=0.5)
+    ax.bar(loss_ticks, losses, color='r',label="Losses",width=0.5)
+    fig.suptitle("Most Played Characters",horizontalalignment='right',size=titlesize)
+    ax.set_xticks(xticklist)
+    ax.set_xticklabels(characters)
+    ax.set_xlabel("Character")
+    ax.set_ylabel("Games")
+    fig.legend()
+    fig.tight_layout()
+    return fig
+```
+
+Here we finally have the code to build the window.
+
+```python
+class ApplicationWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("BotC Statistics")
+        self.setGeometry(0, 0, 1920, 1080)
+        # app.setStyleSheet("QLabel{font-size: 18pt;}")
+        self.setStyleSheet("QLabel{font-size: 25pt;}QMainWindow { background-color: rgb(255, 255, 255);}")
+        
+        self._main = QtWidgets.QWidget()
+        self.setCentralWidget(self._main)
+        
+        layout = QtWidgets.QGridLayout(self._main)
+
+        alignment_win_graph = FigureCanvas(win_loss_alignment(data))  
+        layout.addWidget(alignment_win_graph,1,0,2,1)
+
+        no_games,no_wins,no_losses,curr_win_rate = current_games(data)
+        label = QLabel(f"Games Played: {no_games}    Wins: {no_wins}    Losses: {no_losses}    Current Win Rate: {curr_win_rate}%",self)
+
+        layout.addWidget(label,0,0,1,2)
+
+
+        win_rate_graph = FigureCanvas(running_wins(data))  
+        layout.addWidget(win_rate_graph,1,1)
+
+        character_win_graph = FigureCanvas(most_played_chars(data))  
+        layout.addWidget(character_win_graph,2,1)
+
+        character_win_graph = FigureCanvas(character_wins(data))  
+        layout.addWidget(character_win_graph,1,2,2,2)
+
+
+if __name__ == "__main__":
+    qapp = QtWidgets.QApplication.instance()
+    if not qapp:
+        qapp = QtWidgets.QApplication(sys.argv)
+
+    app = ApplicationWindow()
+    
+    app.show()
+    app.activateWindow()
+    app.raise_()
+    qapp.exec()
+```
+
+The output of the code can be seen in the image below.
+
 ![BotC Graphs - Python edition](images/project_3/BotC_stats_py.png)
