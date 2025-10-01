@@ -512,4 +512,6 @@ From this, we can see that my win percentage peaked at game 15, with a 60 % win 
 
 # Python GUI Dashboard
 
-One problem I had with the PowerBI dashboard was the inability for it to update automatically
+One problem I had with the Power BI dashboard was the inability for it to update automatically as I added games to the spreadsheet. To overcome this, I replicated the dashboard shown above as far as possible using the GUI Python module PyQT. I initially built the dashboard using tkinter, but upon further reading tkinter sounded slightly out of date, so replaced it with an alternative.
+
+![BotC Graphs - Python edition](images/project_3/BotC_stats_py.png)
