@@ -1,6 +1,7 @@
 "use strict"
 async function main() {
-const data = "https://raw.githubusercontent.com/lr508/lr508.github.io/refs/heads/main/js_projects/celebrity_traitors_s2.csv"
+// const data = "https://raw.githubusercontent.com/lr508/lr508.github.io/refs/heads/main/js_projects/celebrity_traitors_s2.csv"
+const data = "https://docs.google.com/spreadsheets/d/1xS7ErWXYjWBM58HSykdlmUUUK3xDxR7dcDPECS2EARY/export?format=csv"
 let rows = await d3.csv(data);
 let name_list = rows.columns;
 
