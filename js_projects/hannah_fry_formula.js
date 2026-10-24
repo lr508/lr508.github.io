@@ -85,7 +85,7 @@ for (let i = 0; i < total_round_tables; i++){
         name_dict[name].voting_history.push(player_vote);
     }
     if (name_dict[banished_contestant].role == true){
-        for (let voted_name of name_dict[banished_contestant].voting_history){
+        for (let voted_name of new Set(name_dict[banished_contestant].voting_history)){
             if (name_dict[voted_name].active == true){
                 name_dict[voted_name].score += banished_traitor_history;
             }
