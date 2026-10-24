@@ -144,8 +144,7 @@ const traces = [...new Set(roles)].map(role => {
 const layout = {
     title: { text: `Traitor Scores After Roundtable ${total_round_tables}` },
     xaxis: { title: { text: "Player Name" }, categoryorder: "total ascending" },
-    yaxis: { title: { text: "Score" } },
-    barmode: "overlay"
+    yaxis: { title: { text: "Score" } }
 };
 
 Plotly.newPlot("myDiv", traces, layout);
