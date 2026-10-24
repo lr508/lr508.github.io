@@ -53,12 +53,17 @@
 
   <section class="commentary">
     <h2>How I got this graph?</h2>
-    <p>The linked video explains the system a lot better than I can, but the gist of it is:</p>
-    <p><ol>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
-</ol> </p>
+    <p>The linked video explains the system a lot better than I can, but the gist of it is that certain votes are more likely to come from traitors than faithfuls.</p>
+    <p>These votes come with point values to indicate how 'traitor-like' it is, and over time contestants will rack up a total, with the theory being that traitors display more behaviours that result in a higher total:</p>
+    <p><ul>
+  <li>A 'burn vote', where a contestant votes for someone nobody else does, carries a points value of 0.47.</li>
+  <li>Voting for a traitor during the vote that they're banished gives 0.33.</li>
+  <li>In addition, the contestant gains an additional 0.4 points if they hadn't voted for that traitor previously.</li>
+      <li>On the other hand, <b>not</b> voting for a traitor during the vote they're banished carries a point value of -1.28 (thus suggesting that traitors are unlikely to do this).</li>
+      <li>Players that a banished traitor voted for in the past lose 1.69 points.</li>
+      <p>In addition, Hannah suggests that being in the final group coming into breakfast with a banished traitor removes 1.73 points, but I did not implement this as it requires sorting more info, and there's a rumour that the
+      producers film multiple breakfast takes to mix it up anyway, so in a scenario where you're attempting to use this in the castle yourself, this might not even be true.</p>
+</ul> </p>
   </section>
 
   <script type="module" src="hannah_fry_formula.js"></script>
