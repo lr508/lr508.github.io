@@ -142,7 +142,7 @@ const traces = [...new Set(roles)].map(role => {
 
 const layout = {
     title: { text: `Traitor Scores After Roundtable ${total_round_tables}` },
-    xaxis: { title: { text: "Name" }, categoryorder: "total ascending" },
+    xaxis: { title: { text: "Player Name" }, categoryorder: "total ascending" },
     yaxis: { title: { text: "Score" } },
 };
 
