@@ -145,6 +145,7 @@ const layout = {
     title: { text: `Traitor Scores After Roundtable ${total_round_tables}` },
     xaxis: { title: { text: "Player Name" }, categoryorder: "total ascending" },
     yaxis: { title: { text: "Score" } },
+    barmode: "overlay"
 };
 
 Plotly.newPlot("myDiv", traces, layout);
