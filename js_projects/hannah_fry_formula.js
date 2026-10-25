@@ -17,7 +17,7 @@ const total_round_tables = rows.length;
 
 const burn_vote = 0.47;
 const banished_traitor_vote = 0.33;
-const banished_traitor_never_voted = 0.4;
+const banished_traitor_never_voted = 0.07;
 const banished_traitor_not_vote = -1.28;
 const banished_traitor_history = -1.69;
 
