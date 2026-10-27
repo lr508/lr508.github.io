@@ -1,7 +1,6 @@
 "use strict"
 async function main() {
-// const data = "https://raw.githubusercontent.com/lr508/lr508.github.io/refs/heads/main/js_projects/celebrity_traitors_s2.csv"
-const data = "https://docs.google.com/spreadsheets/d/1xS7ErWXYjWBM58HSykdlmUUUK3xDxR7dcDPECS2EARY/export?format=csv"
+const data = "https://docs.google.com/spreadsheets/d/1xS7ErWXYjWBM58HSykdlmUUUK3xDxR7dcDPECS2EARY/export?format=csv&gid=968168245"
 let rows = await d3.csv(data);
 let name_list = rows.columns;
 
@@ -13,6 +12,9 @@ for (let name of name_list){
     }
 }
 
+const breakfast_data = "https://docs.google.com/spreadsheets/d/1xS7ErWXYjWBM58HSykdlmUUUK3xDxR7dcDPECS2EARY/export?format=csv&gid=157988116"
+let breakfast_rows = d3.csvParseRows(await d3.text(breakfast_data));
+
 const total_round_tables = rows.length;
 
 const burn_vote = 0.47;
@@ -20,6 +22,7 @@ const banished_traitor_vote = 0.33;
 const banished_traitor_never_voted = 0.07;
 const banished_traitor_not_vote = -1.28;
 const banished_traitor_history = -1.69;
+const with_traitor_last_breakfast = -1.73;
 
 const traitors_dict = {"Maya":0,"Richard":0,"James A":0,"Hannah":1,"Kenny":3};
 let name_dict = {};
@@ -60,6 +63,12 @@ function mostFrequent(arr) {
 let banished_contestant;
 
 for (let i = 0; i < total_round_tables; i++){
+    for (let name of name_list){
+        if (Object.hasOwn(traitors_dict, name) && traitors_dict[name] === i) {
+                name_dict[name].role = true;
+            }
+    
+    }
     let round_table_no = i+1;
     let votes = name_list.map(name => table[name][i]).filter(v => v !== null);
     banished_contestant = mostFrequent(votes);
@@ -90,14 +99,22 @@ for (let i = 0; i < total_round_tables; i++){
                 name_dict[voted_name].score += banished_traitor_history;
             }
         }
+        let last_breakfasts = [];
+        for (let breakfast_row of breakfast_rows.entries()){
+            if ((breakfast_row[1].includes(banished_contestant)) && (breakfast_row[0] >= traitors_dict[banished_contestant])) {
+                for (let breakfast_name of breakfast_row[1]) {
+                    if (breakfast_name != banished_contestant){
+                        last_breakfasts.push(breakfast_name);
+                    }
+
+                }
+            }
+        }
+        for (let name of new Set(last_breakfasts)) {
+            name_dict[name].score += with_traitor_last_breakfast;
+        }
     }
 
-    for (let name of name_list){
-        if (Object.hasOwn(traitors_dict, name) && traitors_dict[name] === i) {
-                name_dict[name].role = true;
-            }
-    
-    }
     name_dict[banished_contestant].active = false;
 }
 
